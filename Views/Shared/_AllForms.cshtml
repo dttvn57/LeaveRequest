@@ -1,0 +1,71 @@
+﻿@model IEnumerable<LeaveRequest.Models.RequestForm>
+
+@if (Model != null)
+{
+    bool isManager = false;
+    if (TempData["ISMANAGER"] != null)
+    {
+        isManager = TempData["ISMANAGER"] == "yes" ? true : false;
+    }
+
+    <table style="border: 0 none;">
+        <colgroup>
+            <col style="width:15%;"/>
+            <col style="width:15%;"/>
+            <col style="width:15%;"/>
+            <col style="width:20%;"/>
+            <col style="width:20%;"/>
+            <col style="width:15%;"/>
+        </colgroup>
+
+        <tr><td><br /></td></tr>
+        <tr><hr></tr>
+
+        <tr>
+            <th>Name</th>
+            <th>Signed on</th>
+            <th>Pay Period</th>
+            <th>Type of Leave</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FullName</td>
+                <td>
+
+                    @if (@item.EmployeeSig != null)
+                    {
+                        @item.EmployeeSig.SignedDate
+                    }
+                </td>
+                <td>@item.PayPeriod</td>
+                <td>@item.TypeOfLeave1</td>
+                <td>@item.StartDate1</td>
+                <td>@item.EndDate1</td>
+
+                @if (@isManager)
+                {
+                    if (TempData["LNAME"] != null && TempData["FNAME"] != null && TempData["LNAME"] == item.LName && TempData["FNAME"] == item.FName)
+                    { 
+                        <td>@Html.ActionLink("View", "GetView", "RequestForm", new { Command = "view", formId = item.ID, lastName=ViewBag.LastName, firstName=ViewBag.FirstName }, null)&nbsp;|&nbsp;<
+                            @Html.ActionLink("Print", "PrintForm", "RequestForm", new { Id = item.ID, fullName = item.FullName }, null)</td>
+                    }
+                    else
+                    {
+                        <td>@Html.ActionLink("Approve", "GetView", "RequestForm", new { Command = "approve", formId = item.ID, lastName = ViewBag.LastName, firstName = ViewBag.FirstName }, null)&nbsp;|&nbsp;
+                            @Html.ActionLink("Print", "PrintForm", "RequestForm", new { Id = item.ID, fullName = item.FullName }, null)</td>
+                    }
+                }
+                else
+                {
+                    <td>@Html.ActionLink("View", "GetView", "RequestForm", new { Command = "view", formId = item.ID, lastName=ViewBag.LastName, firstName=ViewBag.FirstName }, null)&nbsp; &nbsp;|&nbsp;&nbsp;
+                        @Html.ActionLink("Print", "PrintForm", "RequestForm", new { Id = item.ID, fullName = item.FullName }, null)</td>
+               }
+            </tr>
+        }
+    </table>    
+}

@@ -1,0 +1,163 @@
+﻿@model LeaveRequest.Models.RequestForm
+@{
+    Layout = "";
+    var d = @Model.EmployeeSig.SignedDate.Value.ToString("dd/MM/yyyy");
+
+}
+<table width="100%" class="noborder">
+    <colgroup>
+        @for (var i = 0; i < 10; i++)
+            {
+            <col style="width: 10%;" />
+            }
+    </colgroup>
+
+    <tr>
+        <td colspan="4"></td>
+        <td colspan="6" style="text-align:right">Pay Period: @Html.LabelForModel(Model.PayPeriod)</td>
+    </tr>
+    <tr><td><br /></td></tr>
+
+    <tr>
+        <th colspan="1" style="text-align:left">Name:</th>
+        <td colspan="6" style="text-align:left">@Html.LabelForModel(Model.FullName)</td>
+    </tr>
+    <tr><td><br /></td></tr>
+
+    <tr>
+        <th colspan="10" style="color:red; text-align:left">LEAVES OF ABSENCE FROM WORK ARE SUBJECT TO PRE-APPROVAL,  
+        </th>
+    </tr>
+    <tr>
+        <th colspan="10" style="text-align:left">
+        EXCEPT IN THE CASE OF ILLNESS OR INJURY, OR CERTAIN OTHER EMERGENCY SITUATIONS.
+        </th>
+    </tr>
+
+ 
+    <tr><td colspan="10"><hr></td></tr>
+    <tr>
+        <td colspan="10">Sick leave for self, Sick leave appointment/self, Sick leave family combined, Vacation taken, Vacation buy taken, Floating holiday, In-lieu time taken, Personal Leave, Paid leave used, Management paid leave used, Leave without pay, Jury duty, Bereavement leave, Other Leave. </td>
+    </tr>
+
+    <tr><td><br /></td></tr>
+    <tr>
+        <td colspan="10">I request absence from work for the time stated below:</td>
+    </tr>
+
+    <tr><td><br /></td></tr>
+    <tr>
+        <td colspan="3" style="text-align:center"><h3>Type of Leave</h3></td>
+        <td colspan="2" style="text-align:center"><h3>Start Date</h3></td>
+        <td colspan="2" style="text-align:center"><h3>End Date</h3></td>
+        <td colspan="3" style="text-align:center"><h3>Total Number of Hours</h3></td>
+    </tr>
+    <tr><td colspan="10"><hr></td></tr>
+           
+    <tr>
+        <td colspan="3" style="text-align:left">@Html.LabelForModel(Model.TypeOfLeave1)</td>
+        <td colspan="2" style="text-align:center">@Html.LabelForModel(Model.StartDate1.Value.ToString("dd/MM/yyyy"))</td>
+        <td colspan="2" style="text-align:center">@Html.LabelForModel(Model.EndDate1.Value.ToString("dd/MM/yyyy"))</td>
+        <td colspan="3" style="text-align:center">@Html.LabelForModel(Model.TotalHours1.ToString())</td>
+    </tr>
+
+    @if (Model.TypeOfLeave2 != null)
+    { 
+        <tr>
+            <td colspan="3" style="text-align:left">@Html.LabelForModel(Model.TypeOfLeave2)</td>
+            @if (Model.StartDate2 != null)
+            {
+                <td colspan="2" style="text-align:center">@Html.LabelForModel(Model.StartDate2.Value.ToString("dd/MM/yyyy"))</td>
+            }
+            else
+            { 
+                 <td colspan="2"></td>
+            }
+            @if (Model.EndDate2 != null)
+            {
+                <td colspan="2" style="text-align:center">@Html.LabelForModel(Model.EndDate2.Value.ToString("dd/MM/yyyy"))</td>
+            }
+            else
+            { 
+                 <td colspan="2"></td>
+            }
+            <td colspan="3" style="text-align:center">@Html.LabelForModel(Model.TotalHours2.ToString())</td>
+        </tr>
+    }
+
+    @if (Model.TypeOfLeave3 != null)
+    { 
+        <tr>
+            <td colspan="3" style="text-align:left">@Html.LabelForModel(Model.TypeOfLeave3)</td>
+            @if (Model.StartDate3 != null)
+            {
+                <td colspan="2" style="text-align:center">@Html.LabelForModel(Model.StartDate3.Value.ToString("dd/MM/yyyy"))</td>
+            }
+            else
+            { 
+                 <td colspan="2"></td>
+            }
+            @if (Model.EndDate3 != null)
+            {
+                <td colspan="2" style="text-align:center">@Html.LabelForModel(Model.EndDate3.Value.ToString("dd/MM/yyyy"))</td>
+            }
+            else
+            { 
+                 <td colspan="2"></td>
+            }
+            <td colspan="3" style="text-align:center">@Html.LabelForModel(Model.TotalHours3.ToString())</td>
+        </tr>
+    }
+
+    <tr><td><br /></td></tr>
+    <tr>
+        <th colspan="1" style="text-align:left">Comments</th>
+        @if (Model.Comment != null)
+        { 
+            <td colspan="9" style="text-align:left">@Html.LabelForModel(Model.Comment)</td>
+        }
+    </tr>
+    <tr><td><br /></td></tr>
+
+    <tr>
+        <td colspan="10"><b>NOTE: IF REQUESTING LEAVE WITHOUT PAY (LWOP):</b> Reason for request (must be entered into the comments field). <b>JURY/SUBPOENA, MATERNITY/PATERNITY LEAVE, PERSONAL DISABILITY:</b> Forward supporting documentation to the Payroll Unit.</td>
+    </tr>
+    <tr><td><br /></td></tr>
+    <tr>
+        <td colspan="10"><span style="color:red"><b>ALL LEAVES OF ABSENCE ARE SUBJECT TO APPROVAL OR RECOMMENDATION OF THE SUPERVISOR.</b></span><br /><b>LEAVE REQUESTS THAT REQUIRE THE RECOMMENDATION OF DIVISION HEAD, AGENCY PERSONNEL OFFICER, AND COUNTY LIBRARIAN ARE: LWOP, PERSONAL EDUCATION LEAVE, DISABILITY LEAVE AND MAJOR SUPPLEMENTAL SICK LEAVE.</b></td>
+    </tr>
+
+    @* Employee's Signature ***********************************@
+    <tr>
+        <th colspan="2" style="text-align:left">Employee's Signature:</th>
+        <td colspan="5"><img src = @Model.EmployeeSig.SignatureStr width="400" height="100"/>    </td>
+        <th style="text-align:right">Date</th>
+        <td colspan="2">&nbsp;&nbsp;@Html.Label(d)</td>  
+    </tr>
+    <tr><td colspan="10"><hr /></td></tr>
+
+    @* Managers' Signature ***********************************@
+    <tr>
+        <th colspan="2" style="text-align:left">Managers' Signature:</th>
+    </tr>
+    @for (int i = 0; i < Model.ManagersSig.Count; i++)
+    {
+        var sig = Model.ManagersSig.ElementAt(i);
+        if (sig.ID > 0)
+        { 
+            var sigDate = Model.ManagersSig.ElementAt(i).SignedDate;
+            <tr>
+                <td colspan="2">@sig.LName @(", ")  @sig.FName</td>
+
+                @if (@sig.IsSignature && sigDate != null)
+                {
+                    <td colspan="5"><img src = @sig.SignatureStr width="400" height="100"/>   
+                    </td> 
+                    <th style="text-align:right">Date</th>
+                    <td colspan="2">&nbsp;&nbsp;@Html.Label(sigDate.Value.ToString("dd/MM/yyyy"))</td>
+                }
+            </tr>
+        }
+    }
+
+</table>
